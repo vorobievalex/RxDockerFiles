@@ -4,8 +4,6 @@ function Invoke-Command() {
 
     $pinfo = New-Object System.Diagnostics.ProcessStartInfo
     $pinfo.FileName = $program
-    $pinfo.RedirectStandardError = $true
-    $pinfo.RedirectStandardOutput = $true
     $pinfo.UseShellExecute = $false
     $pinfo.Arguments = $argumentString
 
@@ -13,16 +11,12 @@ function Invoke-Command() {
     $p.StartInfo = $pinfo
     $p.Start() | Out-Null
     $p.WaitForExit()
-    $stdout = $p.StandardOutput.ReadToEnd()
-    $stderr = $p.StandardError.ReadToEnd()
-    Write-Host "stdout: $stdout"
-    Write-Host "stderr: $stderr"
     Write-Host "exit code: " + $p.ExitCode
-
 }
 
 
-
+# Remove arguments affecting the report to ensure the report
+# file is always placed in the correct folder
 $remainingArgs = @()
 foreach ($arg in $args) 
 {
@@ -30,11 +24,9 @@ foreach ($arg in $args)
 	$reportfileMatch = ($arg -match "/reportfile:\w+")
 
     If(!($rfMatch -Or $reportfileMatch))
-
     {
         $remainingArgs += $arg
     }
 }
-
 
 Invoke-Command  C:\rxTestFiles\test.exe "/hideprogressdialog /rf:C:\reports\report.html /zrf:C:\reports\report.rxzlog $args"
