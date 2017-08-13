@@ -20,8 +20,8 @@ function Invoke-Command() {
 $remainingArgs = @()
 foreach ($arg in $args) 
 {
-	$rfMatch         = ($arg -match "/rf:\w+")
-	$reportfileMatch = ($arg -match "/reportfile:\w+")
+	$rfMatch         = ($arg -match "/(z)?rf:\w+")
+	$reportfileMatch = ($arg -match "/(zipped)?reportfile:\w+")
 
     If(!($rfMatch -Or $reportfileMatch))
     {
@@ -29,4 +29,4 @@ foreach ($arg in $args)
     }
 }
 
-Invoke-Command  C:\rxTestFiles\test.exe "/hideprogressdialog /rf:C:\reports\report.html /zrf:C:\reports\report.rxzlog $args"
+Invoke-Command  C:\rxTestFiles\test.exe "/hideprogressdialog /rf:C:\report\report.html /zr /zrf:C:\report\report.rxzlog $args"
