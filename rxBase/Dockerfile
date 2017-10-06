@@ -1,6 +1,6 @@
 FROM microsoft/dotnet-framework:4.6.2-windowsservercore-10.0.14393.1480
 
-ARG rxVersion=7.1.0
+ARG rxVersion=7.2.0
 ENV rxVersion ${rxVersion}
 
 LABEL vendor="Ranorex" \ 
