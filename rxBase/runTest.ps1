@@ -2,6 +2,8 @@ function Invoke-Command() {
     param ( [string]$program = $(throw "Please specify a program" ),
             [string]$argumentString = "")
 
+    Write-Host "Running $($program) with arguments $($argumentString)"
+
     $pinfo = New-Object System.Diagnostics.ProcessStartInfo
     $pinfo.FileName = $program
     $pinfo.UseShellExecute = $false
@@ -18,10 +20,10 @@ function Invoke-Command() {
 # Remove arguments affecting the report to ensure the report
 # file is always placed in the correct folder
 $remainingArgs = @()
-foreach ($arg in $args) 
+foreach ($arg in $args)
 {
-	$rfMatch         = ($arg -match "/(z)?rf:\w+")
-	$reportfileMatch = ($arg -match "/(zipped)?reportfile:\w+")
+        $rfMatch         = ($arg -match "/(z)?rf:\w+")
+        $reportfileMatch = ($arg -match "/(zipped)?reportfile:\w+")
 
     If(!($rfMatch -Or $reportfileMatch))
     {
@@ -29,4 +31,7 @@ foreach ($arg in $args)
     }
 }
 
-Invoke-Command  C:\rxTestFiles\test.exe "/hideprogressdialog /rf:C:\report\report.html /zr /zrf:C:\report\report.rxzlog $args"
+Set-PSDebug -Trace 1
+dir C:\rxTestFiles\
+Write-Host "$($args)"
+Invoke-Command  "C:\rxTestFiles\$($args[0])" "/hideprogressdialog /ju /rf:C:\report\report.html /zr /zrf:C:\report\report.rxzlog $($args[1 .. -1])"
