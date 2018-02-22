@@ -10,9 +10,12 @@ LABEL vendor="Ranorex" \
       description="This is a docker base image which contains the necessary components to execute Ranorex test excutables."
       
 ADD installRanorex.ps1 ./installRanorex.ps1
+ADD installChoco.ps1 ./installChoco.ps1
 ADD https://www.ranorex.com/download/Ranorex-${rxVersion}.zip Ranorex-install.zip
+
 RUN powershell .\installRanorex.ps1 -zipPackage:Ranorex-install.zip & \
     del installRanorex.ps1 & \
+	del installChoco.ps1 & \
     del Ranorex-install.zip
 
 # If no license server file is provided by the customer together with his app, the license

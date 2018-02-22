@@ -7,9 +7,8 @@ function installVCRedist()
 {
   param ( [string]$exe = $(throw "Specify the vcredist exe" ))
   Write-Host "Installing: " $exe
-  Start-Process -wait ($exe) -ArgumentList '/quiet', '/install'
+  Start-Process -Wait ($exe) -ArgumentList '/quiet', '/install'
 }
-
 
 $extractFolder = ".\rxTmp\"
 
@@ -19,11 +18,18 @@ Expand-Archive -LiteralPath $zipPackage -DestinationPath $extractFolder -Force
 # Install dependencies
 #######################
 
-$vcredistPattern = $extractFolder + "vcredist*\*.exe"
-$vcredistInstallers = Get-ChildItem $vcredistPattern -Recurse | Select-Object FullName
+#$vcredistPattern = $extractFolder + "vcredist*\*.exe"
+#$vcredistInstallers = Get-ChildItem $vcredistPattern -Recurse | Select-Object FullName
 
-$vcredistInstallers | ForEach-Object {installVCRedist($($_.FullName))}
+#$vcredistInstallers | ForEach-Object {installVCRedist($($_.FullName))}
 
+$env:chocolateyUseWindowsCompression = 'true'
+.\installChoco.ps1
+
+$Packages = 'vcredist-all'
+
+ForEach ($PackageName in $Packages)
+{choco install $PackageName -y}
 
 # Install Ranorex
 #######################

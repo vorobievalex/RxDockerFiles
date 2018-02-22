@@ -34,4 +34,4 @@ foreach ($arg in $args)
 Set-PSDebug -Trace 1
 dir C:\rxTestFiles\
 Write-Host "$($args)"
-Invoke-Command  "C:\rxTestFiles\$($args[0])" "/hideprogressdialog /ju /rf:C:\report\report.html /zr /zrf:C:\report\report.rxzlog $($args[1 .. -1])"
+Invoke-Command  "C:\rxTestFiles\$($args[0])" "/hideprogressdialog /ju /rf:C:\report\report.html /zr /zrf:C:\report\report.rxzlog $($args[1 .. ($args.length - 2)])"
