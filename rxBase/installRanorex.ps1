@@ -8,7 +8,7 @@ Expand-Archive -LiteralPath $zipPackage -DestinationPath $extractFolder -Force
 # Install dependencies
 #######################
 
-$Packages = 'vcredist2008','vcredist2010','vcredist2013'
+$Packages = 'vcredist2008','vcredist2010','vcredist2015'
 
 ForEach ($PackageName in $Packages)
 {choco install $PackageName -y}
