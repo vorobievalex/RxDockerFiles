@@ -28,6 +28,7 @@
 
 #specifically use the API to get the latest version (below)
 $url = ''
+$env:chocolateyUseWindowsCompression = 'true'
 
 $chocolateyVersion = $env:chocolateyVersion
 if (![string]::IsNullOrEmpty($chocolateyVersion)){

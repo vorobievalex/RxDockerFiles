@@ -23,10 +23,10 @@ Expand-Archive -LiteralPath $zipPackage -DestinationPath $extractFolder -Force
 
 #$vcredistInstallers | ForEach-Object {installVCRedist($($_.FullName))}
 
-$env:chocolateyUseWindowsCompression = 'true'
-.\installChoco.ps1
 
-$Packages = 'vcredist-all'
+#.\installChoco.ps1
+
+$Packages = 'vcredist2008','vcredist2010','vcredist2013'
 
 ForEach ($PackageName in $Packages)
 {choco install $PackageName -y}

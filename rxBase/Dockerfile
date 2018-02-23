@@ -12,7 +12,7 @@ LABEL vendor="Ranorex" \
 ADD installRanorex.ps1 ./installRanorex.ps1
 ADD installChoco.ps1 ./installChoco.ps1
 ADD https://www.ranorex.com/download/Ranorex-${rxVersion}.zip Ranorex-install.zip
-
+RUN powershell .\installChoco.ps1
 RUN powershell .\installRanorex.ps1 -zipPackage:Ranorex-install.zip & \
     del installRanorex.ps1 & \
 	del installChoco.ps1 & \
